@@ -23,7 +23,8 @@ while(len(confirmed_pass) < 32):
     returned = re.findall( '<pre>\n(.*)\n</pre>', content )
     if( not returned ):
       confirmed_pass.append(ch)
-      
+      print "".join(confirmed_pass)
+
       break		
 # Note: .join will iterate each character in the string - must be empty
 # to keep it formatted correctly
