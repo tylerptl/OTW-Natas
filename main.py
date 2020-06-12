@@ -1,8 +1,10 @@
 #just importing each level here 
-#import natas20
+from natas21 import *
 from string import * 
-from natas20 import *
+#from pracNatas import *
 
-get_source_code()
+
+#get_source_code()
+
 solve_lab()
 
