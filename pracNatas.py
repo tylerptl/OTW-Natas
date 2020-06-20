@@ -6,9 +6,9 @@ import base64
 import urllib
 import string
 
-usn = 'natas32'
+usn = 'natas33'
 url = 'http://%s.natas.labs.overthewire.org' % usn
-passwd = 'no1vohsheCaiv3ieH4em1ahchisainge'
+passwd = 'shoogeiGa2yee3de6Aex8uaXeech5eey'
 login = (usn, passwd)
 request = requests.Session()
 
@@ -16,9 +16,9 @@ request = requests.Session()
 
 def get_source_code():
   
-  #connection = request.get(url+perl_injection, auth = login)
+  connection = request.get(url, auth = login)
  
-  connection = request.post(url + "", auth = login,)
+  #connection = request.post(url + "/index-source.html", auth = login,)
 
  
   print connection.text
