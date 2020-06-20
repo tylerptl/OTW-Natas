@@ -4,7 +4,7 @@ from string import *
 #from pracNatas import *
 
 
-get_source_code()
+#get_source_code()
 
-#solve_lab()
+solve_lab()
 
