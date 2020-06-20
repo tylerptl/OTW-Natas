@@ -6,9 +6,9 @@ import base64
 import urllib
 import string
 
-usn = 'natas31'
+usn = 'natas32'
 url = 'http://%s.natas.labs.overthewire.org' % usn
-passwd = 'hay7aecuungiuKaezuathuk9biin0pu1'
+passwd = 'no1vohsheCaiv3ieH4em1ahchisainge'
 login = (usn, passwd)
 request = requests.Session()
 
