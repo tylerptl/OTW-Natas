@@ -1,22 +1,47 @@
+#!usr/env/python3
+
+import requests
 import base64
+import re
+from urllib.parse import unquote
 
-key =''
 plaintext = '{"showpassword":"no","bgcolor":"#ffffff"}'
-ciphertext = ''
+target_plaintext = '{"showpassword":"yes","bgcolor":"#ffffff"}'
+session = requests.Session()
+cookies = {"data":"ClVLIh4ASCsCBE8lAxMacFMOXTlTWxooFhRXJh4FGnBTVF4sFxFeLFMK"}
+url = "http://natas11.natas.labs.overthewire.org"
+response = session.get(url, auth=(
+    "natas11", "U82q5TCMMQ9xuFoI3dYX61s7OZD9JKoK"))
+pageContent = response.text
+data_cookie = unquote(response.cookies['data'])
+#print(pageContent)
+
+print("Data cookie: (", data_cookie, ") \n")
+def get_key(plain, cipher):
+    key = ''
+    for char1, char2 in zip(plain, cipher):
+        key += chr(ord(char1) ^ ord(char2))
+       # print("ord(char1) = ", ord(char1), " ord(char2) = ", ord(char2), " key = " , key)
+    return key
 
 
+def xor_encrypt(plain, key):
+    cipher = ''
+    for i, char in enumerate(plain):
+        cipher += chr(ord(char) ^ ord(key[i % len(key)]))
+    return cipher
 
-for c1, c2 in zip(base64.b64decode('ClVLIh4ASCsCBE8lAxMacFMZV2hdVVotEhhUJQNVAmhSEV4sFxFeaAw='), plaintext):
-    #print(c1 + " " + c2)
-    key += chr(ord(c1) ^ ord(c2))
-    #print("Embedded key: " + key)
-print("Key = " + key)
+decoded_data = base64.b64decode(data_cookie).decode()
+#print("Decoded data: \n", decoded_data)
 
-# Will have to manually asign key = 'qw8J'
-key = 'qw8J'
-plaintext = '{"showpassword":"yes","bgcolor":"#ffffff"}'
-for i in range(len(plaintext)):
-  str = plaintext[i]
-  ciphertext += chr(ord(str) ^ ord(key[i % len(key)]))
+key = get_key(plaintext, decoded_data)
 
-print base64.b64encode(ciphertext)
+
+# print(key)
+
+key = 'qw8J'  # Manually set key based on repeated sequence 
+target_cookie = base64.b64encode( xor_encrypt(target_plaintext, key).encode()).decode()
+target_cookie = unquote(target_cookie)
+print(target_cookie)
+
+
